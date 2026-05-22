@@ -1,4 +1,4 @@
-package parse
+package main
 
 import (
 	"bufio"
@@ -7,15 +7,46 @@ import (
 	"strings"
 )
 
-func inputUser() {
+func main() {
 	reader := bufio.NewReader(os.Stdin)
-	fmt.Printf("Digite sua conta:")
+
+	fmt.Print("Digite sua conta: ")
+
 	conta, _ := reader.ReadString('\n')
+
 	conta = strings.TrimSpace(conta)
+
+	number1 := ""
+	number2 := ""
+	operation := ""
+
+	readingSecondNumber := false
 	for _, char := range conta {
-		fmt.Println(string(char))
-		destiny(char)
+
+		if char == '+' || char == '-' || char == '*' || char == '/' {
+
+			operation = string(char)
+
+			readingSecondNumber = true
+
+		} else {
+
+			if readingSecondNumber {
+
+				number2 += string(char)
+
+			} else {
+
+				number1 += string(char)
+
+			}
+
+		}
+
 	}
+	fmt.Println("Primeiro número:", number1)
+	fmt.Println("Operação:", operation)
+	fmt.Println("Segundo número:", number2)
 
 }
 func destiny(char rune) {
