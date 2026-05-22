@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"strconv"
 )
 
 func main() {
@@ -40,6 +41,8 @@ func main() {
 				number1 += string(char)
 
 			}
+			n1, _ := strconv.Atoi(number1)
+			n2, _ := strconv.Atoi(number2)			
 
 		}
 
@@ -51,12 +54,12 @@ func main() {
 }
 func destiny(char rune) {
 	if char == '+' {
-		fmt.Println("é uma soma")
+		resultado := Soma(n1, n2)
 	} else if char == '-' {
-		fmt.Println("é uma subtração")
+		resultado := Substracao(n1, n2)
 	} else if char == '/' {
-		fmt.Println("é uma divisão")
+		resultado := Divisao(n1, n2)
 	} else if char == '*' {
-		fmt.Println("é uma multiplicação")
+		resultado := Multiplicacao(n1, n2)
 	}
 }
