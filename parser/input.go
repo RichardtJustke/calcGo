@@ -1,20 +1,21 @@
-package main
+package parser
 
 import (
 	"bufio"
 	"fmt"
 	"os"
-	"strings"
 	"strconv"
+	"strings"
+
+	"github.com/RichardtJustke/calcGo/operacoes"
 )
 
-func main() {
+func InputUser() {
 	reader := bufio.NewReader(os.Stdin)
 
-	fmt.Print("Digite sua conta: ")
+	fmt.Print("Digite sua conta (ex: 2+2): ")
 
 	conta, _ := reader.ReadString('\n')
-
 	conta = strings.TrimSpace(conta)
 
 	number1 := ""
@@ -23,43 +24,52 @@ func main() {
 
 	readingSecondNumber := false
 	for _, char := range conta {
-
 		if char == '+' || char == '-' || char == '*' || char == '/' {
-
 			operation = string(char)
-
 			readingSecondNumber = true
-
-		} else {
-
-			if readingSecondNumber {
-
-				number2 += string(char)
-
-			} else {
-
-				number1 += string(char)
-
-			}
-			n1, _ := strconv.Atoi(number1)
-			n2, _ := strconv.Atoi(number2)			
-
+			continue
 		}
 
+		if readingSecondNumber {
+			number2 += string(char)
+		} else {
+			number1 += string(char)
+		}
 	}
-	fmt.Println("Primeiro número:", number1)
-	fmt.Println("Operação:", operation)
-	fmt.Println("Segundo número:", number2)
 
-}
-func destiny(char rune) {
-	if char == '+' {
-		resultado := Soma(n1, n2)
-	} else if char == '-' {
-		resultado := Substracao(n1, n2)
-	} else if char == '/' {
-		resultado := Divisao(n1, n2)
-	} else if char == '*' {
-		resultado := Multiplicacao(n1, n2)
+	number1 = strings.TrimSpace(number1)
+	number2 = strings.TrimSpace(number2)
+
+	if number1 == "" || number2 == "" || operation == "" {
+		fmt.Println("Entrada inválida. Formato esperado: <num><op><num>, ex: 12+34")
+		return
 	}
+
+	n1, err1 := strconv.Atoi(number1)
+	n2, err2 := strconv.Atoi(number2)
+	if err1 != nil || err2 != nil {
+		fmt.Println("Não foi possível converter os números para inteiros.")
+		return
+	}
+
+	var resultado int
+	switch operation {
+	case "+":
+		resultado = operacoes.Soma(n1, n2)
+	case "-":
+		resultado = operacoes.Substracao(n1, n2)
+	case "*":
+		resultado = operacoes.Multiplicacao(n1, n2)
+	case "/":
+		if n2 == 0 {
+			fmt.Println("Erro: divisão por zero")
+			return
+		}
+		resultado = operacoes.Divisao(n1, n2)
+	default:
+		fmt.Println("Operador não suportado:", operation)
+		return
+	}
+
+	fmt.Printf("Resultado: %d\n", resultado)
 }
