@@ -35,13 +35,17 @@ E o programa retornará o resultado.
 - Conversão de strings para inteiros e validação.
 - Como compilar e executar programas Go simples.
 
-## Próximos passos (opcionais)
+## Validação na conversão de strings
 
-- Suportar números decimais (floats).
-- Aceitar sinais negativos e parênteses.
+Ao converter a entrada do usuário para números usamos `strconv.Atoi`, que retorna um erro se a string não for um inteiro válido. Validar esse erro evita que entradas inválidas sejam interpretadas como `0` silenciosamente — assim o programa avisa o usuário e evita cálculos incorretos.
+
+## Mudanças futuras
+
+- Suportar números decimais (`float`).
+- Tratar sinais negativos e parênteses.
+- Repetir o prompt até o usuário fornecer entrada válida.
 - Adicionar testes unitários para as operações.
-- Interface minimal em web ou TUI.
-
+- Criar interface simples (web ou TUI).
 ---
 
 Feito com ❤️ como parte do meu aprendizado em Go.
