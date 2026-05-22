@@ -9,4 +9,3 @@ func main() {
 	parser.InputUser()
 }
 
-// switch para encaminhar para as funções de operacoes
